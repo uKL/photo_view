@@ -1,6 +1,4 @@
-import 'dart:ui';
-
-import 'package:flutter/widgets.dart';
+import 'package:flutter_web/widgets.dart';
 import 'package:photo_view/src/photo_view_utils.dart';
 
 import '../photo_view.dart';
