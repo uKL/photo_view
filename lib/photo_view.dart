@@ -1,14 +1,15 @@
 library photo_view;
 
 import 'dart:async';
+import 'package:flutter_web/painting.dart';
 import 'package:flutter_web/material.dart';
 import 'package:flutter_web/widgets.dart';
+import 'package:photo_view/after_layout.dart';
 import 'package:photo_view/src/photo_view_computed_scale.dart';
 import 'package:photo_view/src/photo_view_controller.dart';
 import 'package:photo_view/src/photo_view_controller_delegate.dart';
 import 'package:photo_view/src/photo_view_image_wrapper.dart';
 import 'package:photo_view/src/photo_view_scale_state.dart';
-import 'package:after_layout/after_layout.dart';
 import 'package:photo_view/src/photo_view_typedefs.dart';
 import 'package:photo_view/src/photo_view_utils.dart';
 
@@ -365,8 +366,8 @@ class _PhotoViewState extends State<PhotoView>
     final Completer completer = Completer<ImageInfo>();
     final ImageStream stream =
         widget.imageProvider.resolve(const ImageConfiguration());
-    final listener =
-        ImageStreamListener((ImageInfo info, bool synchronousCall) {
+
+    final listener = (ImageInfo info, bool synchronousCall) {
       if (!completer.isCompleted) {
         completer.complete(info);
         if (mounted) {
@@ -377,7 +378,7 @@ class _PhotoViewState extends State<PhotoView>
           });
         }
       }
-    });
+    };
     stream.addListener(listener);
     completer.future.then((_) {
       stream.removeListener(listener);
